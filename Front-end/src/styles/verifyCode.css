@@ -1,0 +1,177 @@
+.verify-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: var(--app-bg, #f5f7fb);
+  direction: rtl;
+}
+
+.verify-container {
+  width: 100%;
+  max-width: 460px;
+}
+
+.verify-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 40px 34px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.verify-icon {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #eef4ff;
+  color: #2563eb;
+
+  font-size: 28px;
+}
+
+.verify-title {
+  margin: 0 0 10px;
+
+  font-size: 28px;
+  font-weight: 700;
+
+  color: #1f2937;
+}
+
+.verify-description {
+  margin: 0 auto 28px;
+
+  max-width: 350px;
+
+  color: #6b7280;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.verify-email {
+  display: block;
+
+  margin-top: 6px;
+
+  color: #2563eb;
+  font-weight: 600;
+
+  direction: ltr;
+  word-break: break-word;
+}
+
+.verify-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.verify-input {
+  width: 100%;
+  box-sizing: border-box;
+
+  padding: 16px 18px;
+
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+
+  background: #f9fafb;
+
+  font-size: 24px;
+  font-weight: 600;
+
+  letter-spacing: 8px;
+  text-align: center;
+  direction: ltr;
+
+  outline: none;
+
+  transition: 0.2s ease;
+}
+
+.verify-input::placeholder {
+  color: #9ca3af;
+  font-size: 18px;
+  letter-spacing: 3px;
+}
+
+.verify-input:focus {
+  border-color: #2563eb;
+  background: #ffffff;
+
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+}
+
+.verify-error {
+  margin: 0;
+
+  color: #dc2626;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.verify-button {
+  width: 100%;
+
+  border: none;
+  border-radius: 12px;
+
+  padding: 15px 20px;
+
+  background: #2563eb;
+  color: #ffffff;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.verify-button:hover:not(:disabled) {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+.verify-button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.verify-hint {
+  margin-top: 24px;
+
+  color: #9ca3af;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+@media (max-width: 576px) {
+  .verify-page {
+    padding: 16px;
+  }
+
+  .verify-card {
+    padding: 32px 22px;
+    border-radius: 16px;
+  }
+
+  .verify-title {
+    font-size: 24px;
+  }
+
+  .verify-input {
+    font-size: 20px;
+    letter-spacing: 6px;
+  }
+}

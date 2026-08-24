@@ -1,0 +1,64 @@
+.teacher-profile-header {
+  background: var(--color-white);
+  border-bottom: 1px solid var(--color-border);
+  padding: 32px 0;
+}
+
+.teacher-profile-header__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+}
+
+.teacher-profile-header__image {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--color-primary-light);
+}
+
+.teacher-profile-header__name {
+  font-size: 1.3rem;
+  font-family: 'FontAwesome';
+}
+
+.teacher-profile-header__subject {
+  font-size: 0.95rem;
+  color: var(--color-primary-dark);
+  font-weight: 700;
+  margin: 0;
+  font-family: 'FontAwesome';
+}
+
+@media (min-width: 768px) {
+  .teacher-profile-header__inner {
+    flex-direction: row-reverse;
+    text-align: right;
+  }
+
+  .teacher-profile-header__image {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+.teacher-lessons-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 640px;
+}
+
+.teacher-empty-state {
+  text-align: center;
+  padding: 32px 16px;
+}
+
+.teacher-empty-state i {
+  font-size: 1.8rem;
+  color: var(--color-primary);
+  margin-bottom: 10px;
+}

@@ -1,0 +1,516 @@
+/* ==========================================================================
+   Teacher Dashboard — standalone page styles
+   Reuses existing Faslay design tokens (--color-*, --radius-*, --shadow-*,
+   --font-*) and existing shared classes (.btn, .surface-card, .pill,
+   .container-app, .section-eyebrow, .section-title) already defined in your
+   project's global.css.
+
+   Anything new that this page needs is namespaced with "td-" below so it
+   cannot collide with or require editing any existing class.
+   ========================================================================== */
+
+.dashboard-page {
+  background: var(--color-bg);
+}
+
+/* ---- Welcome header ---- */
+.dashboard-header {
+  background: var(--color-white);
+  border-bottom: 1px solid var(--color-border);
+  padding: 28px 0;
+}
+
+.dashboard-header__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+}
+
+.dashboard-header__image {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--color-primary-light);
+  object-fit: inherit;
+}
+
+.dashboard-header__greeting {
+  font-size: 0.85rem;
+  color: var(--color-primary-dark);
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.dashboard-header__name {
+  font-size: 1.3rem;
+}
+
+.dashboard-header__subject {
+  font-size: 0.92rem;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .dashboard-header__inner {
+    flex-direction: row-reverse;
+    text-align: right;
+  }
+
+  .dashboard-header__image {
+    width: 104px;
+    height: 104px;
+  }
+}
+
+/* ---- Section spacing shared across dashboard blocks ---- */
+.dashboard-section {
+  padding: 32px 0;
+}
+
+.dashboard-section__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+/* ---- Quick stats ---- */
+.stat-card {
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 100%;
+}
+
+.stat-card__icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--color-primary-light);
+  color: var(--color-primary-dark);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.05rem;
+  flex-shrink: 0;
+}
+
+.stat-card__value {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+.stat-card__label {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  margin-top: 2px;
+}
+
+/* ---- Profile card ---- */
+.profile-card {
+  padding: 24px;
+}
+
+.profile-card__avatar-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.profile-card__avatar-wrap {
+  position: relative;
+  width: 84px;
+  height: 84px;
+  flex-shrink: 0;
+}
+
+.profile-card__avatar {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  border: 3px solid var(--color-primary-light);
+}
+
+.profile-card__avatar-edit {
+  position: absolute;
+  bottom: -2px;
+  left: -2px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: var(--color-white);
+  border: 2px solid var(--color-white);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.profile-card__avatar-hint {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  max-width: 260px;
+}
+
+.profile-card__form {
+  display: grid;
+  gap: 4px;
+}
+
+@media (min-width: 640px) {
+  .profile-card__form {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 16px;
+  }
+}
+
+.profile-card__actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.td-success-message {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-success, #22C55E);
+}
+
+/* ---- Namespaced form field primitive (new to this page only) ---- */
+.td-field {
+  margin-bottom: 18px;
+}
+
+.td-field label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--color-text);
+}
+
+.td-field input,
+.td-field select {
+  width: 100%;
+  padding: 13px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  background: var(--color-white);
+  color: var(--color-text);
+}
+
+.td-field select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath fill='%2364748B' d='M1 1l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: left 16px center;
+  padding-left: 36px;
+}
+
+.td-field__hint {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  margin-top: 6px;
+}
+
+.td-field__error {
+  display: none;
+  font-size: 0.8rem;
+  color: #DC2626;
+  margin-top: 6px;
+}
+
+.td-field--invalid input,
+.td-field--invalid select {
+  border-color: #DC2626;
+}
+
+.td-field--invalid .td-field__error {
+  display: block;
+}
+
+.td-field--password {
+  position: relative;
+}
+
+.tdcoaskof {
+    position: absolute;
+    top: 38px;
+    left: 14px;
+    background: none;
+    border: none;
+    color: var(--color-text-secondary);
+    font-size: 0.95rem;
+    padding: 6px;
+}
+.tit-num-div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+/* ---- Namespaced status dot (adds a "completed" state alongside your
+   existing --live / --upcoming dots, without touching global.css) ---- */
+.td-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.td-status-dot--upcoming {
+  background: var(--color-success, #22C55E);
+  box-shadow: 0 0 0 4px #DCFCE7;
+}
+
+.td-status-dot--live {
+  background: var(--color-accent, #FB7185);
+  box-shadow: 0 0 0 4px var(--color-accent-light, #FFE4E8);
+}
+
+.td-status-dot--completed {
+  background: var(--color-text-secondary);
+  box-shadow: 0 0 0 4px var(--color-border);
+}
+
+.td-pill--live {
+  background: var(--color-accent-light, #FFE4E8);
+  color: #BE123C;
+}
+
+.td-pill--completed {
+  background: var(--color-border);
+  color: var(--color-text-secondary);
+}
+
+/* ---- Lesson management cards ---- */
+.lessons-grid {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .lessons-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 992px) {
+  .lessons-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.mlesson-card {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 100%;
+}
+
+.mlesson-card__status-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.mlesson-card__title {
+  font-size: 1.02rem;
+  margin: 0;
+}
+
+.mlesson-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 0.82rem;
+  color: var(--color-text-secondary);
+}
+
+.mlesson-card__meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.mlesson-card__meta i {
+  color: var(--color-primary);
+}
+
+.mlesson-card__footer {
+  margin-top: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--color-border);
+}
+
+.mlesson-card__students {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+}
+
+.mlesson-card__actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.dashboard-empty-state {
+  text-align: center;
+  padding: 40px 16px;
+}
+
+.dashboard-empty-state i {
+  font-size: 1.8rem;
+  color: var(--color-primary);
+  margin-bottom: 10px;
+}
+
+/* ---- Create-lesson CTA row ---- */
+.create-lesson-cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 20px;
+  flex-wrap: wrap;
+}
+
+.create-lesson-cta__text h3 {
+  font-size: 1.02rem;
+  margin-bottom: 4px;
+}
+
+.create-lesson-cta__text p {
+  font-size: 0.86rem;
+  margin: 0;
+}
+
+/* ---- Modal content (Bootstrap modal shell, Faslay styling inside) ---- */
+.faslay-modal .modal-content {
+  border-radius: var(--radius-lg);
+  border: none;
+  box-shadow: var(--shadow-lg);
+}
+
+.faslay-modal .modal-header {
+  border-bottom: 1px solid var(--color-border);
+  padding: 20px 22px;
+}
+
+.faslay-modal .modal-title {
+  font-size: 1.1rem;
+}
+
+.faslay-modal .modal-body {
+  padding: 22px;
+}
+
+.faslay-modal .modal-footer {
+  border-top: 1px solid var(--color-border);
+  padding: 16px 22px;
+}
+
+/* ---- Manage-lesson modal details ---- */
+.manage-lesson__info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.manage-lesson__info-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.manage-lesson__info-row span:first-child {
+  color: var(--color-text-secondary);
+}
+
+.manage-lesson__info-row span:last-child {
+  font-weight: 700;
+}
+
+.manage-lesson__students {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.manage-lesson__student {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+}
+
+.manage-lesson__student img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.manage-lesson__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.btn-danger-outline {
+  background: var(--color-white);
+  color: #DC2626;
+  border-color: #FECACA;
+}
+
+.btn-danger-outline:hover {
+  background: #FEF2F2;
+  border-color: #DC2626;
+}
+
+/* Fallback in case the project's global.css doesn't already define this */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

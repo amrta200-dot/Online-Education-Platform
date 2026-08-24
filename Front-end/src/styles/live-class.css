@@ -1,0 +1,1362 @@
+/* =========================================================
+   ROOT
+========================================================= */
+
+.live-class-page {
+  min-height: 100vh;
+  width: 100%;
+  background:
+    radial-gradient(
+      circle at 85% -10%,
+      rgba(99, 102, 241, 0.12),
+      transparent 32%
+    ),
+    #080b12;
+
+  color: #fff;
+
+  font-family:
+    Inter,
+    "Segoe UI",
+    Tahoma,
+    Arial,
+    sans-serif;
+
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.live-header {
+  height: 76px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 28px;
+
+  background: rgba(12, 16, 25, 0.94);
+
+  border-bottom:
+    1px solid rgba(255, 255, 255, 0.07);
+
+  backdrop-filter: blur(18px);
+
+  position: relative;
+  z-index: 20;
+}
+
+.live-header-right {
+  display: flex;
+  align-items: center;
+
+  gap: 22px;
+}
+
+.live-logo {
+  display: flex;
+  align-items: center;
+
+  gap: 11px;
+
+  color: #fff;
+  text-decoration: none;
+}
+
+.logo-icon {
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #6366f1,
+      #8b5cf6
+    );
+
+  font-size: 20px;
+  font-weight: 800;
+
+  box-shadow:
+    0 8px 25px rgba(99, 102, 241, 0.25);
+}
+
+.live-logo strong {
+  display: block;
+
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.live-logo small {
+  display: block;
+
+  margin-top: 2px;
+
+  color: #7f8aa3;
+
+  font-size: 10px;
+  letter-spacing: 0.5px;
+}
+
+.header-divider {
+  width: 1px;
+  height: 34px;
+
+  background:
+    rgba(255, 255, 255, 0.09);
+}
+
+.lesson-info {
+  display: flex;
+  align-items: center;
+
+  gap: 13px;
+}
+
+.live-badge {
+  display: flex;
+  align-items: center;
+
+  gap: 7px;
+
+  padding: 7px 11px;
+
+  border-radius: 20px;
+
+  background:
+    rgba(239, 68, 68, 0.1);
+
+  border:
+    1px solid rgba(239, 68, 68, 0.2);
+
+  color: #f87171;
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.live-dot {
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: #ef4444;
+
+  box-shadow:
+    0 0 0 4px rgba(239, 68, 68, 0.12);
+
+  animation:
+    livePulse 1.8s infinite;
+}
+
+@keyframes livePulse {
+  0% {
+    box-shadow:
+      0 0 0 0 rgba(239, 68, 68, 0.45);
+  }
+
+  70% {
+    box-shadow:
+      0 0 0 7px rgba(239, 68, 68, 0);
+  }
+
+  100% {
+    box-shadow:
+      0 0 0 0 rgba(239, 68, 68, 0);
+  }
+}
+
+.live-header-left {
+  display: flex;
+  align-items: center;
+
+  gap: 20px;
+}
+
+.connection-status {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  color: #9ca8bd;
+
+  font-size: 11px;
+}
+
+.connection-status > div:last-child {
+  display: flex;
+  flex-direction: column;
+}
+
+.connection-status > div:last-child > span {
+  color: #69758a;
+
+  font-size: 9px;
+}
+
+.connection-status strong {
+  display: flex;
+  align-items: center;
+
+  gap: 6px;
+
+  margin-top: 3px;
+
+  color: #4ade80;
+
+  font-size: 10px;
+}
+
+.connection-icon-header {
+  width: 32px;
+  height: 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 9px;
+
+  background:
+    rgba(34, 197, 94, 0.07);
+
+  color: #4ade80;
+}
+
+.connection-icon-header svg {
+  width: 16px;
+  height: 16px;
+}
+
+.status-dot {
+  width: 5px;
+  height: 5px;
+
+  display: inline-block;
+
+  border-radius: 50%;
+
+  background: #22c55e;
+
+  box-shadow:
+    0 0 10px rgba(34, 197, 94, 0.7);
+}
+
+
+/* =========================================================
+   MAIN LIVE AREA
+========================================================= */
+
+.live-class-room {
+  position: relative;
+
+  width: 100%;
+
+  height: calc(100vh - 76px);
+
+  padding: 16px;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   VIDEO AREA
+========================================================= */
+
+.live-video-area {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+
+  border-radius: 18px;
+
+  background: #05070b;
+
+  border:
+    1px solid rgba(255, 255, 255, 0.07);
+
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.35);
+}
+
+.live-video {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+}
+
+.live-video .lk-room-container {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.live-video .lk-video-conference {
+  width: 100%;
+  height: 100%;
+}
+
+
+/* =========================================================
+   إخفاء التحكم الافتراضي في LiveKit
+   لأننا عاملين Controls خاصة بنا
+========================================================= */
+
+.live-video .lk-control-bar {
+  display: none !important;
+}
+
+
+/* =========================================================
+   CUSTOM CONTROLS
+========================================================= */
+
+.custom-controls {
+  position: absolute;
+
+  z-index: 50;
+
+  left: 50%;
+
+  bottom: 22px;
+
+  transform: translateX(-50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 9px;
+
+  padding: 9px 11px;
+
+  border-radius: 18px;
+
+  background:
+    rgba(10, 13, 20, 0.88);
+
+  border:
+    1px solid rgba(255, 255, 255, 0.1);
+
+  box-shadow:
+    0 15px 45px rgba(0, 0, 0, 0.45);
+
+  backdrop-filter: blur(18px);
+}
+
+.control-btn {
+  position: relative;
+
+  width: 44px;
+  height: 44px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border: 0;
+
+  border-radius: 13px;
+
+  background:
+    rgba(255, 255, 255, 0.075);
+
+  color: #e5e7eb;
+
+  cursor: pointer;
+
+  text-decoration: none;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    color 0.2s ease;
+}
+
+.control-btn svg {
+  width: 19px;
+  height: 19px;
+}
+
+.control-btn:hover {
+  background:
+    rgba(255, 255, 255, 0.14);
+
+  transform: translateY(-2px);
+
+  color: #fff;
+}
+
+.control-btn--active {
+  background:
+    linear-gradient(
+      135deg,
+      #6366f1,
+      #8b5cf6
+    );
+
+  color: #fff;
+
+  box-shadow:
+    0 7px 22px rgba(99, 102, 241, 0.25);
+}
+
+.control-btn--active:hover {
+  background:
+    linear-gradient(
+      135deg,
+      #6366f1,
+      #8b5cf6
+    );
+}
+
+.control-btn--off {
+  background:
+    rgba(239, 68, 68, 0.14);
+
+  color: #f87171;
+
+  border:
+    1px solid rgba(239, 68, 68, 0.14);
+}
+
+.control-btn--off:hover {
+  background:
+    rgba(239, 68, 68, 0.22);
+
+  color: #fca5a5;
+}
+
+.control-btn--leave {
+  background:
+    #ef4444;
+
+  color: #fff;
+
+  margin-right: 5px;
+}
+
+.control-btn--leave:hover {
+  background:
+    #dc2626;
+
+  color: #fff;
+}
+
+.comments-count {
+  position: absolute;
+
+  top: -5px;
+  right: -5px;
+
+  min-width: 17px;
+  height: 17px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0 4px;
+
+  border-radius: 20px;
+
+  background: #6366f1;
+
+  border:
+    2px solid #0a0d14;
+
+  color: #fff;
+
+  font-size: 8px;
+  font-weight: 800;
+}
+
+
+/* =========================================================
+   COMMENTS SIDEBAR
+========================================================= */
+
+.comments-sidebar {
+  position: absolute;
+
+  z-index: 60;
+
+  top: 16px;
+  right: 16px;
+  bottom: 16px;
+
+  width: 340px;
+
+  display: flex;
+  flex-direction: column;
+
+  overflow: hidden;
+
+  border-radius: 18px;
+
+  background:
+    #10151f;
+
+  border:
+    1px solid rgba(255, 255, 255, 0.07);
+
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.5);
+
+  animation:
+    commentsSlideIn 0.22s ease;
+}
+
+@keyframes commentsSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+
+/* =========================================================
+   COMMENTS HEADER
+========================================================= */
+
+.comments-header {
+  min-height: 70px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 17px;
+
+  border-bottom:
+    1px solid rgba(255, 255, 255, 0.06);
+}
+
+.comments-header h3 {
+  margin: 0;
+
+  color: #e5e7eb;
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.comments-header span {
+  display: block;
+
+  margin-top: 4px;
+
+  color: #69758a;
+
+  font-size: 9px;
+}
+
+.comments-close {
+  width: 32px;
+  height: 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 0;
+
+  border-radius: 9px;
+
+  background:
+    rgba(255, 255, 255, 0.05);
+
+  color: #9ca3af;
+
+  font-size: 21px;
+  line-height: 1;
+
+  cursor: pointer;
+
+  transition:
+    0.2s ease;
+}
+
+.comments-close:hover {
+  background:
+    rgba(239, 68, 68, 0.13);
+
+  color: #f87171;
+}
+
+
+/* =========================================================
+   COMMENTS LIST
+========================================================= */
+
+.comments-list {
+  flex: 1;
+
+  min-height: 0;
+
+  overflow-y: auto;
+
+  padding: 15px;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+}
+
+.comments-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.comments-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.comments-list::-webkit-scrollbar-thumb {
+  background: #293142;
+
+  border-radius: 10px;
+}
+
+
+/* =========================================================
+   EMPTY COMMENTS
+========================================================= */
+
+.empty-comments {
+  flex: 1;
+
+  min-height: 200px;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  color: #69758a;
+}
+
+.empty-comments-icon {
+  width: 50px;
+  height: 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 13px;
+
+  border-radius: 15px;
+
+  background:
+    rgba(99, 102, 241, 0.1);
+
+  color: #818cf8;
+
+  border:
+    1px solid rgba(99, 102, 241, 0.12);
+}
+
+.empty-comments-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.empty-comments strong {
+  color: #cbd5e1;
+
+  font-size: 11px;
+}
+
+.empty-comments span {
+  margin-top: 5px;
+
+  font-size: 9px;
+}
+
+
+/* =========================================================
+   COMMENT ITEM
+========================================================= */
+
+.comment-item {
+  display: flex;
+
+  gap: 9px;
+
+  padding: 10px;
+
+  border-radius: 12px;
+
+  background:
+    rgba(255, 255, 255, 0.035);
+
+  border:
+    1px solid rgba(255, 255, 255, 0.04);
+}
+
+.comment-avatar {
+  width: 30px;
+  height: 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background:
+    linear-gradient(
+      135deg,
+      #6366f1,
+      #8b5cf6
+    );
+
+  color: #fff;
+
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.comment-body {
+  min-width: 0;
+}
+
+.comment-body strong {
+  display: block;
+
+  color: #dbe2ee;
+
+  font-size: 10px;
+}
+
+.comment-body p {
+  margin: 4px 0 0;
+
+  color: #9aa5b8;
+
+  font-size: 10px;
+
+  line-height: 1.6;
+
+  word-break: break-word;
+}
+
+
+/* =========================================================
+   COMMENT FORM
+========================================================= */
+
+.comment-form {
+  display: flex;
+
+  gap: 8px;
+
+  padding: 12px;
+
+  border-top:
+    1px solid rgba(255, 255, 255, 0.06);
+
+  background:
+    rgba(8, 11, 18, 0.35);
+}
+
+.comment-form input {
+  min-width: 0;
+
+  flex: 1;
+
+  height: 42px;
+
+  padding: 0 13px;
+
+  border: 1px solid
+    rgba(255, 255, 255, 0.08);
+
+  outline: none;
+
+  border-radius: 11px;
+
+  background:
+    rgba(255, 255, 255, 0.045);
+
+  color: #e5e7eb;
+
+  font-family: inherit;
+
+  font-size: 10px;
+
+  direction: rtl;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.comment-form input::placeholder {
+  color: #69758a;
+}
+
+.comment-form input:focus {
+  border-color:
+    rgba(99, 102, 241, 0.55);
+
+  background:
+    rgba(255, 255, 255, 0.06);
+}
+
+.comment-form button {
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border: 0;
+
+  border-radius: 11px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #6366f1,
+      #8b5cf6
+    );
+
+  color: #fff;
+
+  cursor: pointer;
+
+  transition:
+    0.2s ease;
+}
+
+.comment-form button svg {
+  width: 17px;
+  height: 17px;
+}
+
+.comment-form button:hover:not(:disabled) {
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 7px 20px rgba(99, 102, 241, 0.25);
+}
+
+.comment-form button:disabled {
+  opacity: 0.35;
+
+  cursor: not-allowed;
+}
+
+
+/* =========================================================
+   FULLSCREEN
+========================================================= */
+
+.live-video-area:fullscreen {
+  width: 100vw;
+  height: 100vh;
+
+  border-radius: 0;
+
+  border: 0;
+
+  background: #05070b;
+}
+
+.live-video-area:fullscreen .custom-controls {
+  bottom: 28px;
+}
+
+.live-video-area:fullscreen .live-video {
+  inset: 0;
+}
+
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.loading-page,
+.error-page {
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  box-sizing: border-box;
+}
+
+.loading-card,
+.error-card {
+  width: min(420px, 100%);
+
+  padding: 35px 25px;
+
+  text-align: center;
+
+  border-radius: 20px;
+
+  background:
+    rgba(16, 21, 31, 0.95);
+
+  border:
+    1px solid rgba(255, 255, 255, 0.07);
+
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.35);
+}
+
+.loading-card h2,
+.error-card h2 {
+  margin: 18px 0 8px;
+
+  font-size: 18px;
+}
+
+.loading-card p,
+.error-card p {
+  margin: 0;
+
+  color: #7f8aa3;
+
+  font-size: 12px;
+
+  line-height: 1.7;
+}
+
+.loading-spinner {
+  width: 42px;
+  height: 42px;
+
+  margin: 0 auto;
+
+  border-radius: 50%;
+
+  border:
+    3px solid rgba(255, 255, 255, 0.08);
+
+  border-top-color: #6366f1;
+
+  animation:
+    loadingSpin 0.8s linear infinite;
+}
+
+@keyframes loadingSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.error-icon {
+  width: 50px;
+  height: 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin: 0 auto;
+
+  border-radius: 50%;
+
+  background:
+    rgba(239, 68, 68, 0.1);
+
+  border:
+    1px solid rgba(239, 68, 68, 0.18);
+
+  color: #f87171;
+
+  font-size: 23px;
+  font-weight: 800;
+}
+
+.error-card h2 {
+  color: #f87171;
+}
+
+.back-home-btn {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-height: 42px;
+
+  margin-top: 22px;
+
+  padding: 0 20px;
+
+  border-radius: 11px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #6366f1,
+      #8b5cf6
+    );
+
+  color: #fff;
+
+  text-decoration: none;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  transition:
+    0.2s ease;
+}
+
+.back-home-btn:hover {
+  transform: translateY(-2px);
+
+  color: #fff;
+
+  box-shadow:
+    0 8px 25px rgba(99, 102, 241, 0.25);
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+  .live-header {
+    height: 68px;
+
+    padding: 0 18px;
+  }
+
+  .live-class-room {
+    height: calc(100vh - 68px);
+
+    padding: 10px;
+  }
+
+  .live-logo strong {
+    font-size: 13px;
+  }
+
+  .live-logo small {
+    font-size: 9px;
+  }
+
+  .logo-icon {
+    width: 36px;
+    height: 36px;
+
+    border-radius: 10px;
+
+    font-size: 17px;
+  }
+
+  .header-divider {
+    height: 28px;
+  }
+
+  .connection-status {
+    display: none;
+  }
+
+  .live-video-area {
+    border-radius: 15px;
+  }
+
+  .custom-controls {
+    bottom: 15px;
+
+    gap: 7px;
+
+    padding: 7px 9px;
+
+    border-radius: 15px;
+  }
+
+  .control-btn {
+    width: 42px;
+    height: 42px;
+
+    border-radius: 12px;
+  }
+
+  .control-btn svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .comments-sidebar {
+    top: 10px;
+    right: 10px;
+    bottom: 10px;
+
+    width: min(340px, calc(100vw - 20px));
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .live-header {
+    height: 60px;
+
+    padding: 0 11px;
+  }
+
+  .live-header-right {
+    gap: 10px;
+  }
+
+  .live-logo {
+    gap: 7px;
+  }
+
+  .logo-icon {
+    width: 32px;
+    height: 32px;
+
+    border-radius: 9px;
+
+    font-size: 15px;
+  }
+
+  .live-logo strong {
+    font-size: 11px;
+  }
+
+  .live-logo small {
+    display: none;
+  }
+
+  .header-divider {
+    display: none;
+  }
+
+  .live-badge {
+    padding: 6px 8px;
+
+    font-size: 9px;
+  }
+
+  .live-dot {
+    width: 5px;
+    height: 5px;
+  }
+
+  .live-class-room {
+    height: calc(100vh - 60px);
+
+    padding: 7px;
+  }
+
+  .live-video-area {
+    border-radius: 12px;
+  }
+
+  /* -------------------------------------
+     Controls
+  ------------------------------------- */
+
+  .custom-controls {
+    left: 50%;
+    bottom: 10px;
+
+    width: auto;
+
+    max-width: calc(100% - 14px);
+
+    gap: 5px;
+
+    padding: 6px;
+
+    border-radius: 14px;
+  }
+
+  .control-btn {
+    width: 38px;
+    height: 38px;
+
+    border-radius: 10px;
+  }
+
+  .control-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .control-btn--leave {
+    margin-right: 2px;
+  }
+
+  .comments-count {
+    min-width: 15px;
+    height: 15px;
+
+    font-size: 7px;
+  }
+
+  /* -------------------------------------
+     Comments
+  ------------------------------------- */
+
+  .comments-sidebar {
+    top: 7px;
+    right: 7px;
+    bottom: 7px;
+
+    width: calc(100% - 14px);
+
+    border-radius: 14px;
+  }
+
+  .comments-header {
+    min-height: 62px;
+
+    padding: 0 14px;
+  }
+
+  .comments-header h3 {
+    font-size: 12px;
+  }
+
+  .comments-header span {
+    font-size: 8px;
+  }
+
+  .comments-list {
+    padding: 11px;
+  }
+
+  .comment-form {
+    padding: 9px;
+  }
+
+  .comment-form input {
+    height: 40px;
+
+    font-size: 10px;
+  }
+
+  .comment-form button {
+    width: 40px;
+    height: 40px;
+  }
+
+  /* -------------------------------------
+     Fullscreen
+  ------------------------------------- */
+
+  .live-video-area:fullscreen .custom-controls {
+    bottom: 12px;
+  }
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media (max-width: 380px) {
+
+  .custom-controls {
+    gap: 3px;
+
+    padding: 5px;
+  }
+
+  .control-btn {
+    width: 35px;
+    height: 35px;
+
+    border-radius: 9px;
+  }
+
+  .control-btn svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .live-class-room {
+    padding: 5px;
+  }
+
+  .live-video-area {
+    border-radius: 10px;
+  }
+}
+
+
+/* =========================================================
+   LANDSCAPE MOBILE
+========================================================= */
+
+@media (max-height: 500px) and (max-width: 900px) {
+
+  .live-header {
+    height: 54px;
+  }
+
+  .live-class-room {
+    height: calc(100vh - 54px);
+  }
+
+  .logo-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .custom-controls {
+    bottom: 7px;
+
+    padding: 5px;
+  }
+
+  .control-btn {
+    width: 35px;
+    height: 35px;
+  }
+}
