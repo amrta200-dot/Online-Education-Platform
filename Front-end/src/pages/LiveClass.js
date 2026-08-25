@@ -1,24 +1,15 @@
 import { useState, useEffect, useRef } from "react";
-
 import { useParams, Link } from "react-router-dom";
-
 import { useAuth } from "../context/AuthContext";
-
 import {
   LiveKitRoom,
   VideoConference,
   useRoomContext,
 } from "@livekit/components-react";
-
 import "@livekit/components-styles";
 import "../styles/live-class.css";
 
 const API_URL = import.meta.env.VITE_API_URL;
-
-/* =========================================================
-   ICONS
-========================================================= */
-
 function IconMic({ muted = false }) {
   return muted ? (
     <svg viewBox="0 0 24 24" fill="none">
@@ -28,35 +19,30 @@ function IconMic({ muted = false }) {
         strokeWidth="1.9"
         strokeLinecap="round"
       />
-
       <path
         d="M9 9V5.5C9 3.57 10.34 2 12 2C13.66 2 15 3.57 15 5.5V14"
         stroke="currentColor"
         strokeWidth="1.8"
         strokeLinecap="round"
       />
-
       <path
         d="M7 11V12C7 14.76 9.24 17 12 17C13.04 17 14.01 16.68 14.82 16.13"
         stroke="currentColor"
         strokeWidth="1.8"
         strokeLinecap="round"
       />
-
       <path
         d="M17 11V12C17 12.55 16.91 13.08 16.74 13.57"
         stroke="currentColor"
         strokeWidth="1.8"
         strokeLinecap="round"
       />
-
       <path
         d="M12 17V21"
         stroke="currentColor"
         strokeWidth="1.8"
         strokeLinecap="round"
       />
-
       <path
         d="M8 21H16"
         stroke="currentColor"
@@ -75,21 +61,18 @@ function IconMic({ muted = false }) {
         stroke="currentColor"
         strokeWidth="1.8"
       />
-
       <path
         d="M5 11V12C5 15.87 8.13 19 12 19C15.87 19 19 15.87 19 12V11"
         stroke="currentColor"
         strokeWidth="1.8"
         strokeLinecap="round"
       />
-
       <path
         d="M12 19V22"
         stroke="currentColor"
         strokeWidth="1.8"
         strokeLinecap="round"
       />
-
       <path
         d="M8 22H16"
         stroke="currentColor"
@@ -99,7 +82,6 @@ function IconMic({ muted = false }) {
     </svg>
   );
 }
-
 function IconCamera({ off = false }) {
   return off ? (
     <svg viewBox="0 0 24 24" fill="none">
@@ -109,14 +91,12 @@ function IconCamera({ off = false }) {
         strokeWidth="1.9"
         strokeLinecap="round"
       />
-
       <path
         d="M9 6H6C4.9 6 4 6.9 4 8V16C4 17.1 4.9 18 6 18H15"
         stroke="currentColor"
         strokeWidth="1.8"
         strokeLinecap="round"
       />
-
       <path
         d="M15 8L19 6V18L15 16"
         stroke="currentColor"
@@ -135,7 +115,6 @@ function IconCamera({ off = false }) {
         stroke="currentColor"
         strokeWidth="1.8"
       />
-
       <path
         d="M16 10L21 7V17L16 14"
         stroke="currentColor"
@@ -145,7 +124,6 @@ function IconCamera({ off = false }) {
     </svg>
   );
 }
-
 function IconScreen() {
   return (
     <svg viewBox="0 0 24 24" fill="none">
@@ -158,14 +136,12 @@ function IconScreen() {
         stroke="currentColor"
         strokeWidth="1.8"
       />
-
       <path
         d="M8 21H16"
         stroke="currentColor"
         strokeWidth="1.8"
         strokeLinecap="round"
       />
-
       <path
         d="M12 17V21"
         stroke="currentColor"
@@ -175,7 +151,6 @@ function IconScreen() {
     </svg>
   );
 }
-
 function IconComment() {
   return (
     <svg viewBox="0 0 24 24" fill="none">
@@ -189,7 +164,6 @@ function IconComment() {
     </svg>
   );
 }
-
 function IconFullscreen() {
   return (
     <svg viewBox="0 0 24 24" fill="none">
@@ -199,21 +173,18 @@ function IconFullscreen() {
         strokeWidth="1.8"
         strokeLinecap="round"
       />
-
       <path
         d="M16 3H19C20.1 3 21 3.9 21 5V8"
         stroke="currentColor"
         strokeWidth="1.8"
         strokeLinecap="round"
       />
-
       <path
         d="M8 21H5C3.9 21 3 20.1 3 19V16"
         stroke="currentColor"
         strokeWidth="1.8"
         strokeLinecap="round"
       />
-
       <path
         d="M16 21H19C20.1 21 21 20.1 21 19V16"
         stroke="currentColor"
@@ -223,7 +194,6 @@ function IconFullscreen() {
     </svg>
   );
 }
-
 function IconExitFullscreen() {
   return (
     <svg viewBox="0 0 24 24" fill="none">
@@ -233,21 +203,18 @@ function IconExitFullscreen() {
         strokeWidth="1.8"
         strokeLinecap="round"
       />
-
       <path
         d="M15 3V7C15 8.1 15.9 9 17 9H21"
         stroke="currentColor"
         strokeWidth="1.8"
         strokeLinecap="round"
       />
-
       <path
         d="M9 21V17C9 15.9 8.1 15 7 15H3"
         stroke="currentColor"
         strokeWidth="1.8"
         strokeLinecap="round"
       />
-
       <path
         d="M15 21V17C15 15.9 15.9 15 17 15H21"
         stroke="currentColor"
@@ -257,7 +224,6 @@ function IconExitFullscreen() {
     </svg>
   );
 }
-
 function IconSend() {
   return (
     <svg viewBox="0 0 24 24" fill="none">
@@ -268,7 +234,6 @@ function IconSend() {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
-
       <path
         d="M21.5 3L15 21L10 14.5L3 10L21.5 3Z"
         stroke="currentColor"
@@ -279,7 +244,6 @@ function IconSend() {
     </svg>
   );
 }
-
 function IconLeave() {
   return (
     <svg viewBox="0 0 24 24" fill="none">
@@ -290,14 +254,12 @@ function IconLeave() {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
-
       <path
         d="M15 12H3"
         stroke="currentColor"
         strokeWidth="1.8"
         strokeLinecap="round"
       />
-
       <path
         d="M21 19V5C21 3.9 20.1 3 19 3H14"
         stroke="currentColor"
@@ -307,7 +269,6 @@ function IconLeave() {
     </svg>
   );
 }
-
 function IconWifi() {
   return (
     <svg viewBox="0 0 24 24" fill="none">
@@ -317,14 +278,12 @@ function IconWifi() {
         strokeWidth="1.8"
         strokeLinecap="round"
       />
-
       <path
         d="M8.5 16a6 6 0 0 1 7 0"
         stroke="currentColor"
         strokeWidth="1.8"
         strokeLinecap="round"
       />
-
       <path
         d="M12 19H12.01"
         stroke="currentColor"
@@ -334,51 +293,29 @@ function IconWifi() {
     </svg>
   );
 }
-
-/* =========================================================
-   LIVE CLASS ROOM
-========================================================= */
-
 function LiveClassRoom() {
   const room = useRoomContext();
-
   const videoAreaRef = useRef(null);
-
-  const [micEnabled, setMicEnabled] = useState(true);
-  const [cameraEnabled, setCameraEnabled] = useState(true);
+  const [micEnabled, setMicEnabled] = useState(false);
+  const [cameraEnabled, setCameraEnabled] = useState(false);
   const [screenEnabled, setScreenEnabled] = useState(false);
-
   const [commentsOpen, setCommentsOpen] = useState(false);
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState("");
   // عدد التعليقات الجديدة التي لم يفتحها المستخدم
   const [unreadComments, setUnreadComments] = useState(0);
   const [userName, setUserName] = useState("مستخدم");
-
   const [isFullscreen, setIsFullscreen] = useState(false);
-
-  /* =========================================================
-     GET NAME DIRECTLY FROM LIVEKIT
-  ========================================================= */
-
-/* =========================================================
-   GET CURRENT USER NAME FROM LIVEKIT
-========================================================= */
-
 useEffect(() => {
   if (!room) return;
-
   const updateUserName = () => {
     const participant = room.localParticipant;
-
     const name =
       participant?.name?.trim() ||
       participant?.identity ||
       "مستخدم";
-
     setUserName(name);
   };
-
   // أول مرة
   updateUserName();
 
@@ -537,65 +474,77 @@ useEffect(() => {
      MICROPHONE
   ========================================================= */
 
-  const toggleMicrophone = async () => {
-    try {
-      const newState = !micEnabled;
+const toggleMicrophone = async () => {
+  try {
+    const newState =
+      !room.localParticipant.isMicrophoneEnabled;
 
-      await room.localParticipant.setMicrophoneEnabled(
-        newState
-      );
+    await room.localParticipant.setMicrophoneEnabled(
+      newState
+    );
 
-      setMicEnabled(newState);
-    } catch (error) {
-      console.error(
-        "Microphone error:",
-        error
-      );
-    }
-  };
+    setMicEnabled(
+      room.localParticipant.isMicrophoneEnabled
+    );
+  } catch (error) {
+    console.error(
+      "Microphone error:",
+      error
+    );
+
+    setMicEnabled(false);
+  }
+};
 
   /* =========================================================
      CAMERA
   ========================================================= */
+const toggleCamera = async () => {
+  try {
+    const newState =
+      !room.localParticipant.isCameraEnabled;
 
-  const toggleCamera = async () => {
-    try {
-      const newState = !cameraEnabled;
+    await room.localParticipant.setCameraEnabled(
+      newState
+    );
 
-      await room.localParticipant.setCameraEnabled(
-        newState
-      );
+    setCameraEnabled(
+      room.localParticipant.isCameraEnabled
+    );
+  } catch (error) {
+    console.error(
+      "Camera error:",
+      error
+    );
 
-      setCameraEnabled(newState);
-    } catch (error) {
-      console.error(
-        "Camera error:",
-        error
-      );
-    }
-  };
+    setCameraEnabled(false);
+  }
+};
 
   /* =========================================================
      SCREEN SHARE
   ========================================================= */
+const toggleScreenShare = async () => {
+  try {
+    const newState =
+      !room.localParticipant.isScreenShareEnabled;
 
-  const toggleScreenShare = async () => {
-    try {
-      const newState = !screenEnabled;
+    await room.localParticipant.setScreenShareEnabled(
+      newState
+    );
 
-      await room.localParticipant.setScreenShareEnabled(
-        newState
-      );
+    setScreenEnabled(
+      room.localParticipant.isScreenShareEnabled
+    );
+  } catch (error) {
+    console.error(
+      "Screen share error:",
+      error
+    );
 
-      setScreenEnabled(newState);
-    } catch (error) {
-      console.error(
-        "Screen share error:",
-        error
-      );
-    }
-  };
-
+    setScreenEnabled(false);
+  }
+};
   /* =========================================================
      FULLSCREEN
   ========================================================= */
@@ -711,7 +660,7 @@ useEffect(() => {
         }`}
       >
 
-        <div className="live-video">
+        <div className="live-video" data-lk-theme="default">
           <VideoConference />
         </div>
 
@@ -1244,22 +1193,39 @@ function LiveClass() {
           LIVEKIT
       =================================================== */}
 
-      <LiveKitRoom
-        video={true}
-        audio={true}
-        token={token}
-        serverUrl={serverUrl}
-        connect={true}
-        onDisconnected={() => {
-          console.log(
-            "Disconnected from LiveKit"
-          );
-        }}
-      >
+        <LiveKitRoom
+  video={false}
+  audio={false}
+  token={token}
+  serverUrl={serverUrl}
+  connect={true}
 
-        <LiveClassRoom />
+  onMediaDeviceFailure={(error, kind) => {
+    console.error(
+      "LiveKit media device failure:",
+      {
+        error,
+        kind,
+      }
+    );
+  }}
 
-      </LiveKitRoom>
+  onError={(error) => {
+    console.error(
+      "LiveKit room error:",
+      error
+    );
+  }}
+
+  onDisconnected={() => {
+    console.log(
+      "Disconnected from LiveKit"
+    );
+  }}
+>
+  <LiveClassRoom />
+</LiveKitRoom>
+
 
     </div>
   );
