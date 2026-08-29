@@ -26,10 +26,7 @@ router.post("/login", async (req, res) => {
       });
     }
     const verificationCode = Math.floor( 100000 + Math.random() * 900000 ).toString();
-
-    const verificationCodeExpires = new Date(
-      Date.now() + 10 * 60 * 1000
-    );
+    const verificationCodeExpires = new Date( Date.now() + 10 * 60 * 1000 );
 
     user.verificationCode = verificationCode;
     user.verificationCodeExpires = verificationCodeExpires;
@@ -40,12 +37,10 @@ router.post("/login", async (req, res) => {
       user.email,
       verificationCode
     );
-
     res.json({
       message: "Verification code sent to your email",
       email: user.email,
     });
-
   } catch (error) {
     console.error("Login error:", error.message);
     res.status(500).json({
@@ -57,26 +52,24 @@ router.post("/login", async (req, res) => {
 router.post("/verify-code", async (req, res) => {
     try {
         const { email, code, purpose } = req.body;
-        // 1. التأكد من البيانات
+
         if (!email || !code || !purpose) {
             return res.status(400).json({
                 message: "Email, code and purpose are required",
             });
         }
-        // 2. البحث عن المستخدم
+
         const user = await User.findOne({ email });
         if (!user) {
             return res.status(404).json({
                 message: "User not found",
             });
         }
-        // 3. التأكد من الكود
         if ( !user.verificationCode || user.verificationCode !== code ) {
             return res.status(400).json({
                 message: "Invalid verification code",
             });
         }
-        // 4. التأكد من انتهاء الصلاحية
         if ( !user.verificationCodeExpires || user.verificationCodeExpires < new Date() ) {
             return res.status(400).json({
                 message: "Verification code expired",
@@ -98,14 +91,12 @@ router.post("/verify-code", async (req, res) => {
                       expiresIn: "7d",
                   }
               );
-            
                 res.cookie("token", token, {
                   httpOnly: true,
                   secure: true,
                   sameSite: "none",
                   maxAge: 7 * 24 * 60 * 60 * 1000,
                 });
-            
               return res.json({
                   message: "Account verified successfully!",
                   user: {
@@ -175,13 +166,12 @@ router.post("/verify-code", async (req, res) => {
 router.post("/register", async (req, res) => {
   try {
     const { name, email, password } = req.body;
-    // 1. التأكد إن البيانات موجودة
     if (!name || !email || !password) {
       return res.status(400).json({
         message: "Name, email and password are required",
       });
     }
-    // 2. التأكد إن الإيميل مش مستخدم قبل كده
+    // التأكد إن الإيميل مش مستخدم قبل كده
     const existingUser = await User.findOne({ email });
 
     if (existingUser) {
@@ -190,43 +180,27 @@ router.post("/register", async (req, res) => {
       });
     }
 
-    // 3. تشفير كلمة المرور
+    //  تشفير كلمة المرور
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // 4. إنشاء كود التحقق
-    const verificationCode = Math.floor(
-      100000 + Math.random() * 900000
-    ).toString();
+    const verificationCode = Math.floor( 100000 + Math.random() * 900000 ).toString();
+    const verificationCodeExpires = new Date( Date.now() + 10 * 60 * 1000 );
 
-    // 5. تحديد صلاحية الكود - 10 دقائق
-    const verificationCodeExpires = new Date(
-      Date.now() + 10 * 60 * 1000
-    );
-
-    // 6. إنشاء المستخدم
     const user = await User.create({
       name,
       email,
       password: hashedPassword,
-      role: "student",
-    
+      role: "student",    
       emailVerified: false,
-    
       verificationCode,
       verificationCodeExpires,
-    
-      registrationExpiresAt: new Date(
-        Date.now() + 10 * 60 * 1000
-      ),
+      registrationExpiresAt: new Date( Date.now() + 10 * 60 * 1000 ),
     });
-
-    // 7. إرسال الكود للإيميل
     await sendVerificationEmail(
       user.email,
       verificationCode
     );
 
-    // 8. الرد على Frontend
     res.status(201).json({
       message: "Verification code sent to your email",
       email: user.email,
@@ -238,8 +212,6 @@ router.post("/register", async (req, res) => {
     });
   }
 });
-
-
 router.post("/forgotpassword", async (req, res) => {
   try {
     const { email } = req.body;
@@ -260,12 +232,10 @@ router.post("/forgotpassword", async (req, res) => {
       user.email,
       verificationCode
     );
-
     res.json({
       message: "Verification code sent to your email",
       email: user.email,
     });
-
   } catch (error) {
     console.error("Login error:", error.message);
     res.status(500).json({
@@ -277,27 +247,23 @@ router.post("/forgotpassword", async (req, res) => {
 router.post("/resetpassword", async (req, res) => {
   try {
     const { resetToken, password } = req.body;
-    // 1. التأكد إن البيانات موجودة
+
     if (!resetToken || !password) {
       return res.status(400).json({
         message: "Email and password are required",
       });
     }
-    // 2. البحث عن المستخدم
-    const user = await User.findOne({ resetPasswordToken: resetToken, resetPasswordExpires: {
-            $gt: new Date(),
-        },
-    });
+    //البحث عن المستخدم
+    const user = await User.findOne({ resetPasswordToken: resetToken, resetPasswordExpires: { $gt: new Date(), },});
     if (!user) {
       return res.status(404).json({
         message: "إذا كان البريد الإلكتروني مسجلًا لدينا، فسيتم إرسال رمز التحقق",
       });
     }
-    // 3. تشفير كلمة المرور الجديدة
     const hashedPassword = await bcrypt.hash(password, 10);
-    // 4. استبدال كلمة المرور القديمة بالجديدة
+    //  استبدال كلمة المرور القديمة بالجديدة
       user.password = hashedPassword;
-        
+
       user.resetPasswordToken = undefined;
       user.resetPasswordExpires = undefined;
         
@@ -318,11 +284,9 @@ res.clearCookie("token", {
   secure: true,
   sameSite: "none",
 });
-
 res.json({
   message: "Logged out successfully",
 });
 });
-
 
 export default router;

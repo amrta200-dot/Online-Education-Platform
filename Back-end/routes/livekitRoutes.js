@@ -5,94 +5,40 @@ import User from "../models/User.js";
 
 const router = express.Router();
 
-/*
-==========================================================
-GET /api/livekit/token?room=lesson-xxxx
-
-الصلاحيات:
-
-Teacher:
-- Join room
-- Microphone
-- Camera
-- Screen share
-- Subscribe
-- Data / Comments
-- Room Admin
-
-Student:
-- Join room
-- Microphone
-- Camera
-- Screen share
-- Subscribe
-- Data / Comments
-
-يعني الطالب والمدرس نفس صلاحيات الصوت والفيديو.
-الفرق الوحيد:
-المدرس = roomAdmin
-الطالب = ليس roomAdmin
-==========================================================
-*/
-
 router.get("/token", authMiddleware, async (req, res) => {
   try {
     console.log("\n========================================");
     console.log("LIVEKIT TOKEN REQUEST");
     console.log("========================================");
-
-    // ======================================================
-    // 1. Room
-    // ======================================================
-
+    // Room
     const { room } = req.query;
-
     console.log("Room:", room);
-
     if (!room || typeof room !== "string") {
       return res.status(400).json({
         message: "Room is required",
       });
     }
-
-    // ======================================================
-    // 2. User from JWT
-    // ======================================================
-
+    //  User from JWT
     const userId = req.user?.userId;
     const jwtRole = req.user?.role;
 
     console.log("JWT userId:", userId);
     console.log("JWT role:", jwtRole);
-
     if (!userId) {
       return res.status(401).json({
         message: "User ID is missing from authentication token",
       });
     }
-
-    // ======================================================
-    // 3. Check role
-    // ======================================================
-
+    //  Check role
     if (jwtRole !== "teacher" && jwtRole !== "student") {
       return res.status(403).json({
         message: "You are not allowed to join live classes",
       });
     }
-
-    // ======================================================
-    // 4. Check LiveKit environment variables
-    // ======================================================
-
-    const LIVEKIT_API_KEY =
-      process.env.LIVEKIT_API_KEY?.trim();
-
-    const LIVEKIT_API_SECRET =
-      process.env.LIVEKIT_API_SECRET?.trim();
-
-    const LIVEKIT_URL =
-      process.env.LIVEKIT_URL?.trim();
+    //  Check LiveKit environment variables
+    const LIVEKIT_API_KEY = process.env.LIVEKIT_API_KEY?.trim();
+    const LIVEKIT_API_SECRET = process.env.LIVEKIT_API_SECRET?.trim();
+    const LIVEKIT_URL = process.env.LIVEKIT_URL?.trim();
 
     console.log(
       "LIVEKIT_API_KEY exists:",
@@ -123,9 +69,7 @@ router.get("/token", authMiddleware, async (req, res) => {
       });
     }
 
-    // ======================================================
     // 5. Get user from MongoDB
-    // ======================================================
 
     const user = await User.findById(userId).select(
       "name email role image"
@@ -142,9 +86,7 @@ router.get("/token", authMiddleware, async (req, res) => {
       });
     }
 
-    // ======================================================
     // 6. Make sure DB role is valid
-    // ======================================================
 
     if (
       user.role !== "teacher" &&
@@ -162,9 +104,7 @@ router.get("/token", authMiddleware, async (req, res) => {
 
     const role = user.role;
 
-    // ======================================================
     // 7. User display name
-    // ======================================================
 
     const userName =
       user.name?.trim() ||
@@ -175,9 +115,7 @@ router.get("/token", authMiddleware, async (req, res) => {
     console.log("DB user name:", userName);
     console.log("DB user role:", role);
 
-    // ======================================================
     // 8. Create AccessToken
-    // ======================================================
 
     const at = new AccessToken(
       LIVEKIT_API_KEY,
@@ -206,9 +144,7 @@ router.get("/token", authMiddleware, async (req, res) => {
       }
     );
 
-    // ======================================================
     // 9. SAME permissions for teacher and student
-    // ======================================================
 
     const grant = {
       /*
@@ -244,23 +180,17 @@ router.get("/token", authMiddleware, async (req, res) => {
       canUpdateOwnMetadata: true,
     };
 
-    // ======================================================
     // 10. Teacher ONLY = Room Admin
-    // ======================================================
 
     if (role === "teacher") {
       grant.roomAdmin = true;
     }
 
-    // ======================================================
     // 11. Add grant
-    // ======================================================
 
     at.addGrant(grant);
 
-    // ======================================================
     // 12. Generate JWT
-    // ======================================================
 
     const token = await at.toJwt();
 
@@ -270,9 +200,7 @@ router.get("/token", authMiddleware, async (req, res) => {
       );
     }
 
-    // ======================================================
     // 13. Debug
-    // ======================================================
 
     console.log("LiveKit token generated successfully");
 
@@ -294,9 +222,7 @@ router.get("/token", authMiddleware, async (req, res) => {
 
     console.log("========================================\n");
 
-    // ======================================================
     // 14. Response
-    // ======================================================
 
     return res.status(200).json({
       token,
@@ -314,10 +240,8 @@ router.get("/token", authMiddleware, async (req, res) => {
     });
 
   } catch (error) {
-    // ======================================================
     // IMPORTANT:
     // نطبع الخطأ الحقيقي وليس فقط message عام
-    // ======================================================
 
     console.error("\n========================================");
     console.error("LIVEKIT TOKEN ERROR");

@@ -5,15 +5,10 @@ import "../styles/login.css";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-/**
- * واجهة تسجيل الدخول فقط — بدون أي منطق مصادقة.
- * حالات الخطأ معروضة كأمثلة فقط عبر className="login-field--invalid"
- * (غير مُفعّلة افتراضيًا)، أضف منطق التحقق لاحقًا بنفسك.
- */
 function Login() {
+
   const navigate = useNavigate();
   const { login } = useAuth();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(true);
@@ -28,21 +23,16 @@ const handleSubmit = async (e) => {
   } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     newErrors.email = "يرجى إدخال بريد إلكتروني صحيح";
   }
-
   if (!password.trim()) {
     newErrors.password = "كلمة المرور مطلوبة";
   }
-
   setErrors(newErrors);
-
   if (Object.keys(newErrors).length > 0) {
     return;
   }
-
   setIsLoading(true);
-
   try {
-const response = await fetch( `${API_URL}/api/auth/login`, {
+    const response = await fetch( `${API_URL}/api/auth/login`, {
     method: "POST",
     credentials: "include",
     headers: {
@@ -54,15 +44,13 @@ const response = await fetch( `${API_URL}/api/auth/login`, {
     }),
   }
 );
-
-const data = await response.json();
-
-if (!response.ok) {
-  setErrors({
-    email: data.message || "Invalid email or password",
-  });
-  return;
-}
+  const data = await response.json();
+  if (!response.ok) {
+    setErrors({
+      email: data.message || "Invalid email or password",
+    });
+    return;
+  }
     navigate("/verify-code", {
       state: {
         email: email,
@@ -71,7 +59,6 @@ if (!response.ok) {
     });
   } catch (error) {
     console.error("Login error:", error);
-
     setErrors({
       general: error.message || "البريد الإلكتروني أو كلمة المرور غير صحيحة",
     });
@@ -79,8 +66,6 @@ if (!response.ok) {
     setIsLoading(false);
   }
 };
-
-
   return (
     <section className="login-page">
       <div className="container-app">
@@ -104,10 +89,7 @@ if (!response.ok) {
                 value={email}
                 onChange={(e) => {
                   setEmail(e.target.value);
-                  setErrors((prev) => ({
-                    ...prev,
-                    email: "",
-                  }));
+                  setErrors((prev) => ({...prev, email: "", }));
                 }}
                 className={errors.email ? "login-field--invalid" : ""}
               />
@@ -126,7 +108,6 @@ if (!response.ok) {
                 autoComplete="current-password"
                 value={password}
                 onChange={(e) => {setPassword(e.target.value);
-                
                   setErrors((prev) => ({
                     ...prev,
                     password: "",

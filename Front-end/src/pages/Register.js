@@ -6,28 +6,20 @@ import "../styles/register.css";
 const API_URL = import.meta.env.VITE_API_URL;
 
 function Register() {
+
   const navigate = useNavigate(); 
   const [showPassword, setShowPassword] = useState(true);
   const [showcPassword, setShowcPassword] = useState(true);
-  const [formdata, setFormdata] = useState({
-    name: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
-
+  const [formdata, setFormdata] = useState({ name: "", email: "", password: "", confirmPassword: "",});
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
     setFormdata((prev) => ({
       ...prev,
       [name]: value,
     }));
-
-    // مسح الخطأ الخاص بالحقل أثناء الكتابة
     setErrors((prev) => ({
       ...prev,
       [name]: "",
@@ -37,17 +29,9 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const newErrors = {};
 
-    /*
-     * =========================
-     * NAME VALIDATION
-     * =========================
-     */
-
     const name = formdata.name.trim();
-
     if (!name) {
       newErrors.name = "يرجى كتابة اسمك";
     } else if (name.length < 3) {
@@ -69,13 +53,6 @@ function Register() {
       newErrors.password =
         "كلمة المرور يجب أن تكون 8 أحرف على الأقل";
     }
-
-    /*
-     * =========================
-     * CONFIRM PASSWORD
-     * =========================
-     */
-
     if (!formdata.confirmPassword) {
       newErrors.confirmPassword =
         "يرجى تأكيد كلمة المرور";
@@ -85,27 +62,11 @@ function Register() {
       newErrors.confirmPassword =
         "كلمتا المرور غير متطابقتين";
     }
-
-    /*
-     * =========================
-     * SHOW VALIDATION ERRORS
-     * =========================
-     */
-
     setErrors(newErrors);
-
     if (Object.keys(newErrors).length > 0) {
       return;
     }
-
-    /*
-     * =========================
-     * SEND TO SERVER
-     * =========================
-     */
-
     setIsLoading(true);
-
     try {
       const response = await fetch(`${API_URL}/api/auth/register`,
         {
@@ -114,7 +75,6 @@ function Register() {
           headers: {
             "Content-Type": "application/json",
           },
-
           body: JSON.stringify({
             name,
             email,
@@ -125,29 +85,14 @@ function Register() {
       );
 
       const data = await response.json();
-
-      /*
-       * =========================
-       * SERVER ERROR
-       * =========================
-       */
-
       if (!response.ok) {
         setErrors({
           general:
             data.message ||
             "حدث خطأ أثناء إنشاء الحساب",
         });
-
         return;
       }
-
-      /*
-       * =========================
-       * SUCCESS
-       * =========================
-       */
-
       navigate("/verify-code", {
         state: {
           email: data.email,
@@ -156,10 +101,9 @@ function Register() {
       });
     } catch (error) {
       console.error("Register error:", error);
-
       setErrors({
         general:
-          "تعذر الاتصال بالسيرفر. تأكد من تشغيل السيرفر وحاول مرة أخرى.",
+          "تعذر الاتصال بالسيرفر. تأكد من اتصالك بالإنترنت وحاول مرة أخرى.",
       });
     } finally {
       setIsLoading(false);

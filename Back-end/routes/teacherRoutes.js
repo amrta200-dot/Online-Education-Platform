@@ -7,12 +7,6 @@ import upload from "../middleware/uploadMiddleware.js";
 
 const router = express.Router();
 
-/*
-|--------------------------------------------------------------------------
-| GET /api/teachers
-| جلب جميع المدرسين - Public
-|--------------------------------------------------------------------------
-*/
 router.get("/", async (req, res) => {
     try {
     const teachers = await User.find(

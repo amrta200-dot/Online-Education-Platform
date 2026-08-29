@@ -1,8 +1,6 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
- 
-// المشروع يستخدم امتداد .js (وليس .jsx) لملفات React كما طُلب،
-// لذلك نضبط esbuild ليتعامل مع كل ملفات .js داخل src على أنها JSX.
+
 export default defineConfig({
   plugins: [react()],
   esbuild: {

@@ -6,25 +6,15 @@ import "../styles/login.css";
 const API_URL = import.meta.env.VITE_API_URL;
 
 function ResetPassword() {
-    const [formdata, setFormdata] = useState({
-    password: "",
-    confirmPassword: "",
-    });
-    
+    const [formdata, setFormdata] = useState({ password: "", confirmPassword: "", });
     const [showPassword, setShowPassword] = useState(true);
     const [showcPassword, setShowcPassword] = useState(true);
-    const [errors, setErrors] = useState({
-    password: "",
-    confirmPassword: "",
-    general: "",
-    });
-
+    const [errors, setErrors] = useState({ password: "", confirmPassword: "", general: "", });
     const location = useLocation();
     const navigate = useNavigate();
 
     const email = location.state?.email;
     const resetToken = location.state?.resetToken;
-    
 
     const [isLoading, setIsLoading] = useState(false);
 
@@ -39,8 +29,6 @@ function ResetPassword() {
     newErrors.password =
         "كلمة المرور يجب أن تكون 8 أحرف على الأقل";
     }
-
-  // Confirm password
     if (!formdata.confirmPassword) {
     newErrors.confirmPassword =
         "يرجى تأكيد كلمة المرور";
@@ -68,8 +56,7 @@ function ResetPassword() {
     }
 );
 
-const data = await response.json();
-
+    const data = await response.json();
     if (!response.ok) {
     setErrors({
         ...errors,
@@ -78,10 +65,8 @@ const data = await response.json();
     return;
     }
     navigate("/");
-
     } catch (error) {
     console.error("Reset password error:", error);
-
     setErrors({
         general: error.message || "البريد الإلكتروني أو كلمة المرور غير صحيحة",
     });
@@ -89,7 +74,6 @@ const data = await response.json();
     setIsLoading(false);
     }
 };
-
     return (
     <section className="reset-password-page">
         <div className="container">

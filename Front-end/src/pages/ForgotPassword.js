@@ -15,18 +15,15 @@ function ForgotPassword() {
 const handleSubmit = async (e) => {
     e.preventDefault();
     const newErrors = {};
-  // Email
     if (!email.trim()) {
         newErrors.email = "من فضلك أدخل البريد الإلكتروني";
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
         newErrors.email = "من فضلك أدخل البريد الإلكتروني صحيحًا ";
     }
     setErrors(newErrors);
-
     if (Object.keys(newErrors).length > 0) {
     return;
     }
-
     setIsLoading(true);
 
     try {
@@ -40,7 +37,6 @@ const handleSubmit = async (e) => {
         }),
         }
     );
-
     const data = await response.json();
 
     if (!response.ok) {
@@ -50,10 +46,9 @@ const handleSubmit = async (e) => {
             ? "البريد الإلكتروني غير مسجل لدينا"
             : data.message || "حدث خطأ أثناء إرسال كود التحقق",
         });
-
         return;
     }
-
+    
     navigate("/verify-code", {
         state: {
         email: email.trim(),
