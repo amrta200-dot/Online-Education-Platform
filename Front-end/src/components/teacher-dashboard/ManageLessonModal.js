@@ -37,9 +37,9 @@ const handleDelete = async () => {
         data.message || "حدث خطأ أثناء حذف الدرس"
       );
     }
-    // 1️⃣ نحذف الدرس من قائمة الدروس
+    //  نحذف الدرس من قائمة الدروس
     onDelete(lesson.id);
-    // 2️⃣ نقفل نافذة إدارة الدرس
+    //  نقفل نافذة إدارة الدرس
     const modalElement =
       document.getElementById("manageLessonModal");
     if (modalElement && window.bootstrap) {
