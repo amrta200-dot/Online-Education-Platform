@@ -21,6 +21,7 @@
     "livekit-server-sdk": "^2.18.0",
     "mongoose": "^9.9.2",
     "multer": "^2.2.0",
-    "nodemailer": "^9.0.5"
+    "nodemailer": "^9.0.5",
+    "resend": "^6.25.0"
   }
 }
