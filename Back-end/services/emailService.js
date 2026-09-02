@@ -1,26 +1,46 @@
-import { Resend } from "resend";
-
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export async function sendVerificationEmail(email, code) {
-    const { data, error } = await resend.emails.send({
-    from: "onboarding@resend.dev",
-    to: [email],
-    subject: "تحقق من حساب منصة فصلي الخاص بك",
-    html: `
-    <div dir="rtl">
-        <h2>منصة فصلي</h2>
-        <p>رمز التحقق الخاص بك هو:</p>
-        <h1>${code}</h1>
-        <p>من فضلك لا تشارك هذا الرمز مع أي شخص.</p>
-    </div>
-    `,
-});
-    if (error) {
-    console.error("Resend email error:", error);
-    throw new Error(error.message);
+    try {
+    const response = await fetch("https://api.brevo.com/v3/smtp/email", {
+        method: "POST",
+        headers: {
+            "api-key": process.env.BREVO_API_KEY,
+            "Content-Type": "application/json",
+            Accept: "application/json",
+        },
+        body: JSON.stringify({
+            sender: {
+                name: "منصة فصلي",
+                email: "amr.ttttt300@gmail.com",
+        },
+        to: [
+            {
+                email,
+            },
+        ],
+        subject: "تحقق من حساب منصة فصلي الخاص بك",
+        htmlContent: `
+        <div dir="rtl">
+            <h2>منصة فصلي</h2>
+            <p>رمز التحقق الخاص بك هو:</p>
+            <h1>${code}</h1>
+            <p>من فضلك لا تشارك هذا الرمز مع أي شخص.</p>
+        </div>
+        `,
+        }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+        console.error("Brevo email error:", data);
+        throw new Error(data.message || "Failed to send email");
     }
-    console.log("Verification email sent:", data?.id);
+
+    console.log("Verification email sent:", data);
+    } catch (error) {
+    console.error("Brevo email error:", error.message);
+    throw error;
+    }
 }
 // import nodemailer from "nodemailer";
 
