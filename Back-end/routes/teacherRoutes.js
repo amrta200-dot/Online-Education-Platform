@@ -4,8 +4,30 @@ import Lesson from "../models/Lesson.js";
 import authMiddleware from "../middleware/authMiddleware.js";
 import teacherMiddleware from "../middleware/teacherMiddleware.js";
 import upload from "../middleware/uploadMiddleware.js";
+import cloudinary from "../config/cloudinary.js";
 
 const router = express.Router();
+
+console.log("🔥 CLOUDINARY TEACHER ROUTES LOADED");
+
+const uploadToCloudinary = (buffer) =>
+  new Promise((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      {
+        folder: "fasly/teachers",
+        resource_type: "image",
+      },
+      (error, result) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(result);
+        }
+      }
+    );
+
+    stream.end(buffer);
+  });
 
 router.get("/", async (req, res) => {
     try {
@@ -34,6 +56,7 @@ router.get("/", async (req, res) => {
     }
 });
 router.get("/me",authMiddleware,teacherMiddleware,async (req, res) => {
+
     try {
         const teacher = await User.findById(req.user.userId).select(
             "-password -verificationCode -verificationCodeExpires -resetPasswordToken -resetPasswordExpires"
@@ -62,9 +85,24 @@ router.get("/me",authMiddleware,teacherMiddleware,async (req, res) => {
     }
 );
 
-router.put("/me" , authMiddleware, teacherMiddleware, upload.single("image"), async (req, res) => {
-    try {
-      const { name, subject } = req.body;
+router.put("/me" , authMiddleware, teacherMiddleware, upload.single("image"),
+
+async (req, res) => {
+    console.log("🔥 PUT /api/teachers/me ROUTE HIT");
+  try {
+    console.log("🔥 UPLOAD DEBUG:", {
+      hasFile: !!req.file,
+      file: req.file
+        ? {
+            originalname: req.file.originalname,
+            mimetype: req.file.mimetype,
+            size: req.file.size,
+            hasBuffer: !!req.file.buffer,
+          }
+        : null,
+    });
+
+    const { name, subject } = req.body;
 
       if (!name || !name.trim()) {
         return res.status(400).json({
@@ -90,9 +128,20 @@ router.put("/me" , authMiddleware, teacherMiddleware, upload.single("image"), as
       teacher.subject = subject.trim();
 
       // لو المدرس اختار صورة جديدة
-      if (req.file) {
-        teacher.image = `/uploads/teachers/${req.file.filename}`;
-      }
+if (req.file) {
+  console.log("FILE RECEIVED:", {
+    originalname: req.file.originalname,
+    mimetype: req.file.mimetype,
+    size: req.file.size,
+    hasBuffer: !!req.file.buffer,
+  });
+
+  const result = await uploadToCloudinary(req.file.buffer);
+
+  console.log("CLOUDINARY RESULT:", result.secure_url);
+
+  teacher.image = result.secure_url;
+}
 
       await teacher.save();
 
