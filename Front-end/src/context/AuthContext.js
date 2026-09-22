@@ -9,28 +9,25 @@ export function AuthProvider({ children }) {
   const [isLoading, setIsLoading] = useState(true);
 
   // التأكد من الجلسة عن طريق الـ Cookie
-  const checkAuth = async () => {
-    try {
-      const response = await fetch(`${API_URL}/api/protected`, {
-        method: "GET",
-        credentials: "include",
-      });
-      if (!response.ok) {
-        setIsLoggedIn(false);
-        setUser(null);
-        return;
-      }
-      const data = await response.json();
-      setIsLoggedIn(true);
-      setUser(data.user);
-    } catch (error) {
-      console.error("Auth check error:", error);
-      setIsLoggedIn(false);
-      setUser(null);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+const checkAuth = async () => {
+  try {
+    const response = await fetch(`${API_URL}/api/auth/me`, {
+      method: "GET",
+      credentials: "include",
+    });
+
+    const data = await response.json();
+
+    setIsLoggedIn(data.isLoggedIn);
+    setUser(data.user);
+  } catch (error) {
+    console.error("Auth check error:", error);
+    setIsLoggedIn(false);
+    setUser(null);
+  } finally {
+    setIsLoading(false);
+  }
+};
   useEffect(() => {
     checkAuth();
   }, []);

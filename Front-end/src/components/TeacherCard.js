@@ -13,6 +13,7 @@ function TeacherCard({ teacher }) {
   const teacherImage = teacher?.image ? teacher.image.startsWith("http") ? teacher.image : `${API_URL}${teacher.image}` : "";
 
   return (
+    <>
     <article className="teacher-card surface-card h-100">
       <div className="teacher-card__image-wrap">
         <img src={teacherImage} alt={`صورة ${teacher?.name || "المدرس"}`} className="teacher-card__image" />
@@ -27,6 +28,8 @@ function TeacherCard({ teacher }) {
         </Link>
       </div>
     </article>
+    
+    </>
   );
 }
 

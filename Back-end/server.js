@@ -8,6 +8,7 @@ import authMiddleware from "./middleware/authMiddleware.js";
 import teacherMiddleware from "./middleware/teacherMiddleware.js";
 import cookieParser from "cookie-parser";
 import path from "path";
+import jwt from "jsonwebtoken";
 
 // live 
 import dotenv from "dotenv";
@@ -43,6 +44,27 @@ app.get("/api/test", (req, res) => {
     res.json({
         message: "API is working!",
     });
+});
+app.get("/api/auth/me", (req, res) => {
+    try {
+    const token = req.cookies?.token;
+    if (!token) {
+        return res.status(200).json({
+        isLoggedIn: false,
+        user: null,
+        });
+    }
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    return res.status(200).json({
+        isLoggedIn: true,
+        user: decoded,
+    });
+    } catch (error) {
+    return res.status(200).json({
+        isLoggedIn: false,
+        user: null,
+    });
+    }
 });
 app.get("/api/protected", authMiddleware, (req, res) => {
     res.json({

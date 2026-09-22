@@ -45,10 +45,7 @@ function Teachers() {
         <div className="container-app">
           <div className="row g-3">
             {teachers.map((teacher) => (
-              <div
-                className="col-6 col-md-3"
-                key={teacher.id}
-              >
+              <div className="col-6 col-md-3" key={teacher.id}>
                 <TeacherCard teacher={teacher} />
               </div>
             ))}
