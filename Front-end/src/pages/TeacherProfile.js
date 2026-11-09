@@ -65,7 +65,13 @@ function TeacherProfile() {
     return (
       <section className="section">
         <div className="container-app">
-          <p>جاري تحميل بيانات المدرس...</p>
+          <div className="text-center mt-4 spennn">
+            {/* <p>جاري تحميل المدرسين...</p> */}
+            <span
+                  className="spinner-border text-primary spinner-border-lg ms-2"
+                  aria-hidden="true"
+            ></span>
+          </div>
         </div>
       </section>
     );
